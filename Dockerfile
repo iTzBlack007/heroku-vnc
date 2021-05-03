@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-
+FROM scottyhardy/docker-wine
 ENV DEBIAN_FRONTEND=noninteractive
 
 #RUN echo 'deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse\n' > /etc/apt/sources.list
@@ -51,12 +51,12 @@ RUN dpkg --add-architecture i386; \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-RUN set -ex; \
-    apt-get update \
-    && apt-get install -y wine-stable wine32 wine64 \
-    && apt-get autoclean \
-    && apt-get autoremove \
-    && rm -rf /var/lib/apt/lists/*
+#RUN set -ex; \
+ #   apt-get update \
+  #  && apt-get install -y wine-stable wine32 wine64 \
+   # && apt-get autoclean \
+    #&& apt-get autoremove \
+    #&& rm -rf /var/lib/apt/lists/*
 
 RUN dpkg-reconfigure locales
 
