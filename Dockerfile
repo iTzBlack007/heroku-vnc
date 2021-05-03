@@ -48,7 +48,6 @@ RUN set -ex; \
 	ibus-gtk3 \
 	ibus-qt4 \
 	wine-stable \
-	i386 \
 	wine32 \
     && apt-get autoclean \
     && apt-get autoremove \
