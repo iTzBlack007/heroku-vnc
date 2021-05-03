@@ -53,9 +53,7 @@ RUN dpkg --add-architecture i386; \
 
 RUN set -ex; \
     apt-get update \
-    && apt-get install -y 
-    	wine-stable \
-	wine32 \
+    && apt-get install -y wine-stable wine32 \
     && apt-get autoclean \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
