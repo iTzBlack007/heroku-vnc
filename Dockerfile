@@ -5,8 +5,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 #RUN echo 'deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse\ndeb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse\ndeb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse\n' > /etc/apt/sources.list
 
 RUN apt-get upgrade 
-RUN dpkg --add-architecture i386
-RUN set -ex; \
+RUN dpkg --add-architecture i386; \
+    set -ex; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         dbus-x11 \
@@ -47,7 +47,14 @@ RUN set -ex; \
 	ibus-gtk \
 	ibus-gtk3 \
 	ibus-qt4 \
-	wine-stable \
+    && apt-get autoclean \
+    && apt-get autoremove \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; \
+    apt-get update \
+    && apt-get install -y 
+    	wine-stable \
 	wine32 \
     && apt-get autoclean \
     && apt-get autoremove \
