@@ -1,10 +1,3 @@
-ARG WVERSION="5.17"
-ARG WTVERSION="20200412"
-
-ENV WINE_VERSION="${WVERSION}"
-ENV PKG_WINE_VERSION="${WVERSION}~${UBUNTU_VERSION}"
-ENV WINE_TRICKS_VERSION="${WTVERSION}"
-
 FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -57,20 +50,13 @@ RUN dpkg --add-architecture i386; \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -s https://dl.winehq.org/wine-builds/winehq.key | apt-key add - && \
-    echo "deb https://dl.winehq.org/wine-builds/ubuntu/ ${UBUNTU_VERSION} main" | tee /etc/apt/sources.list.d/wine.list && \
-    apt update && \
-    apt install -y winbind cabextract wget fonts-wine ttf-mscorefonts-installer\
-        winehq-staging=$PKG_WINE_VERSION \
-        wine-staging=$PKG_WINE_VERSION \
-        wine-staging-i386=$PKG_WINE_VERSION \
-        wine-staging-amd64=$PKG_WINE_VERSION
+RUN wget -nc https://dl.winehq.org/wine-builds/winehq.key; sudo apt-key add winehq.key
 
-ADD https://github.com/Winetricks/winetricks/archive/${WINE_TRICKS_VERSION}.zip /tmp/wt.zip 
-RUN unzip /tmp/wt.zip -d /tmp/ && \
-    cp /tmp/winetricks-${WINE_TRICKS_VERSION}/src/winetricks /usr/local/bin && \
-    rm -Rf /tmp/*
+RUN sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' [Ubuntu 18.04 & Linux Mint 19.x]
 
+
+
+RUN apt-get update; apt-get install --install-recommends winehq-stable
 
 #RUN set -ex; \
  #   apt-get update \
