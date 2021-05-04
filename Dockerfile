@@ -8,6 +8,7 @@ RUN dpkg --add-architecture i386; \
     set -ex; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
+    	software-properties-common \
         dbus-x11 \
         nautilus \
         gedit \
@@ -51,11 +52,7 @@ RUN dpkg --add-architecture i386; \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget -nc https://dl.winehq.org/wine-builds/winehq.key; sudo apt-key add winehq.key
-
-RUN sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' [Ubuntu 18.04 & Linux Mint 19.x]
-
-
-
+RUN sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
 RUN apt-get update; apt-get install --install-recommends winehq-stable
 
 #RUN set -ex; \
