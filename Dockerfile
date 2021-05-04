@@ -51,8 +51,8 @@ RUN dpkg --add-architecture i386; \
     && apt-get autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-RUN wget -nc https://dl.winehq.org/wine-builds/winehq.key; sudo apt-key add winehq.key
-RUN sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
+RUN wget https://dl.winehq.org/wine-builds/winehq.key; apt-key add winehq.key
+RUN add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main'
 RUN apt-get update; apt-get install --install-recommends winehq-stable
 
 #RUN set -ex; \
